@@ -34,7 +34,7 @@ export default function ProductForm(
             const res = await fetch("/api/upload", {
                 method: "POST",
                 body: data
-            })
+            });
             console.log(res)
         }
     }
