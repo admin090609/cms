@@ -86,27 +86,28 @@ export default function ProductForm({
 
   return (
     <form onSubmit={saveProduct}>
-      <label>Product name</label>
+      <label>Denumirea Produsului</label>
       <input
         type="text"
-        placeholder="product name"
+        placeholder="Produsul..."
         value={title}
         onChange={ev => setTitle(ev.target.value)} />
-      <label>Category</label>
+      <label>Categoria</label>
       <br />
       <select value={category}
         onChange={ev => setCategory(ev.target.value)}
         className="border-2 rounded-sm border-gray-400 mb-2">
-        <option value="">Uncategorized</option>
+        <option value="">Necategorizat</option>
         {categories.length > 0 && categories.map(c => (
           <option key={c._id} value={c._id}>{c.name}</option>
         ))}
       </select>
       {propertiesToFill.length > 0 && propertiesToFill.map(p => (
         <div key={p.name} className="">
-          <label>{p.name[0].toUpperCase() + p.name.substring(1)}</label>
+          <label>{p.name ? p.name[0].toUpperCase() + p.name.substring(1) : ''}</label>
           <div>
             <select value={productProperties[p.name]}
+              className="border-2 rounded-sm border-gray-400 mb-2"
               onChange={ev =>
                 setProductProp(p.name, ev.target.value)
               }
@@ -120,7 +121,7 @@ export default function ProductForm({
       ))}
       <br />
       <label>
-        Photos
+        Imagini
       </label>
       <div className="mb-2 flex flex-wrap gap-1">
         <ReactSortable
@@ -140,7 +141,7 @@ export default function ProductForm({
                     setImages(updatedImages);
                   }}
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" style={{ fill: '#ffff' }} width="15" height="15" viewBox="0 0 24 24"><path d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" style={{ fill: '#ffff' }} width="15" height="15" viewBox="0 0 24 24"><path d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z" /></svg>
                 </button>
               )}
             </div>
@@ -157,28 +158,28 @@ export default function ProductForm({
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
             <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
           </svg>
-          <div>
-            Add image
+          <div className="leading-4">
+            Adaugă imagine
           </div>
           <input type="file" onChange={uploadImages} className="hidden" />
         </label>
       </div >
-      <label>Description</label>
+      <label>Descriere</label>
       <textarea
-        placeholder="description"
+        placeholder="Descriere..."
         value={description}
         onChange={ev => setDescription(ev.target.value)}
       />
-      <label>Price (in Lei)</label>
+      <label>Preț (în Lei)</label>
       <input
-        type="number" placeholder="price"
+        type="number" placeholder="Preț..."
         value={price}
         onChange={ev => setPrice(ev.target.value)}
       />
       <button
         type="submit"
         className="btn-primary">
-        Save
+        Salvează
       </button>
     </form >
   );

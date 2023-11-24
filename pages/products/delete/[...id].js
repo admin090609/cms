@@ -24,17 +24,17 @@ export default function DeleteProductPage() {
   }
   return (
     <Layout>
-      <h1 className="text-center">Do you really want to delete
+      <h1 className="text-center">Doriți să ștergeți 
         &nbsp;&quot;{productInfo?.title}&quot;?
       </h1>
       <div className="flex gap-2 justify-center">
         <button
           onClick={deleteProduct}
-          className="btn-red">Yes</button>
+          className="btn-red">Da</button>
         <button
           className="btn-default"
           onClick={goBack}>
-          NO
+          Nu
         </button>
       </div>
     </Layout>
