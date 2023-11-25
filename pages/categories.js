@@ -49,9 +49,9 @@ function Categories({ swal }) {
     }
     setParentCategory(category.parent?._id);
     setProperties(
-      category.properties.map(({ name, values }) => ({
-        name: name.length >= 2 ? name : '', // Check if the name meets the minimum length requirement
-        values: values.join(',')
+      category.properties.map(({name,values}) => ({
+        name,
+        values:values.join(',')
       }))
     );
   }
@@ -132,7 +132,7 @@ function Categories({ swal }) {
             Adaugă Proprietate Nouă
           </button>
           {properties.length > 0 && properties.map((property, index) => (
-            <div key={property.name} className="flex gap-1 mb-2">
+            <div key={index} className="flex gap-1 mb-2">
               <input type="text"
                 value={property.name}
                 className="mb-0"
