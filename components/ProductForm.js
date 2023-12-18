@@ -12,6 +12,7 @@ export default function ProductForm({
   images: existingImages,
   category: assignedCategory,
   properties: assignedProperties,
+  options: assignedOptions
 }) {
   const [title, setTitle] = useState(existingTitle || '');
   const [description, setDescription] = useState(existingDescription || '');
@@ -31,21 +32,34 @@ export default function ProductForm({
   }, []);
   async function saveProduct(ev) {
     ev.preventDefault();
+
+    const optionsPayload = optionsData.map(({ title, options }) => ({
+      title,
+      options: options.filter(option => option.trim() !== ''), // Remove empty options
+    }));
+
     const data = {
-      title, description, price, images, category,
-      properties: productProperties
+      title,
+      description,
+      price,
+      images,
+      category,
+      properties: productProperties,
+      options: optionsPayload, // Include options data in the payload
     };
+
     if (_id) {
-      //update
+      // Update
       await axios.put('/api/products', { ...data, _id });
     } else {
-      //create
+      // Create
       await axios.post('/api/products', data);
     }
     setGoToProducts(true);
   }
+
   if (goToProducts) {
-    router.push('/products');
+    router.push('/');
   }
   async function uploadImages(ev) {
     const files = ev.target?.files;
@@ -83,6 +97,52 @@ export default function ProductForm({
       catInfo = parentCat;
     }
   }
+
+
+  const [optionsData, setOptionsData] = useState(
+    assignedOptions || [{ title: '', options: [''] }]
+  );
+
+  // Function to add a new title with an option
+  const addNewTitle = () => {
+    setOptionsData(prevData => [
+      ...prevData,
+      { title: '', options: [''] },
+    ]);
+  };
+
+  // Function to add a new option for a specific title
+  const addNewOption = (titleIndex) => {
+    setOptionsData(prevData => {
+      const newData = [...prevData];
+      newData[titleIndex] = {
+        ...newData[titleIndex],
+        options: [...newData[titleIndex].options, ''],
+      };
+      return newData;
+    });
+  };
+
+  // Function to update the title or option based on the input value
+  const updateOptionData = (titleIndex, optionIndex, value, isTitle) => {
+    setOptionsData(prevData => {
+      const newData = [...prevData];
+      if (isTitle) {
+        newData[titleIndex] = { ...newData[titleIndex], title: value };
+      } else {
+        newData[titleIndex].options[optionIndex] = value;
+      }
+      return newData;
+    });
+  };
+
+  const deleteTitle = (titleIndex) => {
+    setOptionsData((prevData) => {
+      const newData = [...prevData];
+      newData.splice(titleIndex, 1);
+      return newData;
+    });
+  };
 
   return (
     <form onSubmit={saveProduct}>
@@ -170,6 +230,39 @@ export default function ProductForm({
         value={description}
         onChange={ev => setDescription(ev.target.value)}
       />
+      <label>Opțiuni</label>
+      {optionsData.map((data, titleIndex) => (
+        <div key={titleIndex} className="mb-2">
+          <div className="flex items-center mb-2">
+            <input
+              type="text"
+              placeholder="Titlu opțiune"
+              value={data.title}
+              onChange={(ev) => updateOptionData(titleIndex, 0, ev.target.value, true)}
+            />
+            <button type="button" onClick={() => deleteTitle(titleIndex)}>
+              Șterge
+            </button>
+          </div>
+          {data.options.map((option, optionIndex) => (
+            <div key={optionIndex}>
+              <input
+                type="text"
+                placeholder="Opțiune"
+                value={option}
+                onChange={(ev) => updateOptionData(titleIndex, optionIndex, ev.target.value, false)}
+              />
+            </div>
+          ))}
+          <button type="button" onClick={() => addNewOption(titleIndex)}>
+            Adaugă opțiune
+          </button>
+        </div>
+      ))}
+      <button type="button" onClick={addNewTitle}>
+        Adaugă titlu opțiune
+      </button>
+      <br />
       <label>Preț (în Lei)</label>
       <input
         type="number" placeholder="Preț..."

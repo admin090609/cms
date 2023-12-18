@@ -9,6 +9,14 @@ export default function OrdersPage() {
       setOrders(response.data);
     });
   }, []);
+
+  const [answer, setAnswer] = useState('No');
+
+  const toggleAnswer = () => {
+    setAnswer(answer === 'No' ? 'Yes' : 'No');
+  };
+
+
   return (
     <Layout>
       <h1>Comenzi</h1>
@@ -18,7 +26,6 @@ export default function OrdersPage() {
             <th>Dată</th>
             <th>Destinatar</th>
             <th>Produse</th>
-            <th>Comanda Completată</th>
           </tr>
         </thead>
         <tbody>
@@ -36,12 +43,9 @@ export default function OrdersPage() {
                 {order.line_items.map(l => (
                   <>
                     {l.price_data?.product_data.name} x
-                    {l.quantity}<br />
+                    {l.quantity}<br />{l.price_data?.product_data.options}
                   </>
                 ))}
-              </td>
-              <td className={order.paid ? 'text-green-600' : 'text-red-600'}>
-                {order.paid ? 'Da' : 'Nu'}
               </td>
             </tr>
           ))}
