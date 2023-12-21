@@ -37,7 +37,7 @@ export default function OrdersPage() {
               <td>
                 Nume: {order.name} <br />
                 Mail: {order.email}<br />
-                Adresă: {order.streetAddress}, {order.city}<br />
+                Telefon: {order.phone}<br />
               </td>
               <td>
                 {order.line_items.map(l => (
