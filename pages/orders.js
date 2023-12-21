@@ -37,7 +37,7 @@ export default function OrdersPage() {
               <td>
                 Nume: {order.name} <br />
                 Mail: {order.email}<br />
-                Telefon: {order.phone}<br />
+                Telefon: 0{order.phone}<br />
               </td>
               <td>
                 {order.line_items.map(l => (
