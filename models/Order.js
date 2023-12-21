@@ -4,7 +4,7 @@ const OrderSchema = new Schema({
   line_items:Object,
   name:String,
   email:String,
-  phone:String,
+  phone: Number,
 }, {
   timestamps: true,
 });
