@@ -16,7 +16,7 @@ export default async function handle(req, res) {
   }
 
   if (method === 'POST') {
-    const { title, description, price, images, category, properties, options } = req.body;
+    const { title, description, price, images, category, properties, options, minWidth, minHeight } = req.body;
     const productDoc = await Product.create({
       title,
       description,
@@ -24,13 +24,15 @@ export default async function handle(req, res) {
       images,
       category,
       properties,
-      options: options || [], // Ensure options is an array even if it's not provided
+      options: options || [], // Ensure options is an array even if it's not provided,
+      minWidth,
+      minHeight
     });
     res.json(productDoc);
   }
 
   if (method === 'PUT') {
-    const { title, description, price, images, category, properties, _id, options } = req.body;
+    const { title, description, price, images, category, properties, _id, options, minWidth, minHeight } = req.body;
     await Product.updateOne({ _id }, {
       title,
       description,
@@ -39,6 +41,8 @@ export default async function handle(req, res) {
       category,
       properties,
       options: options || [],
+      minWidth,
+      minHeight
     });
     res.json(true);
   }

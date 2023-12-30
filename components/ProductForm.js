@@ -12,7 +12,9 @@ export default function ProductForm({
   images: existingImages,
   category: assignedCategory,
   properties: assignedProperties,
-  options: assignedOptions
+  options: assignedOptions,
+  minWidth: assignedWidth,
+  minHeight: assignedHeight,
 }) {
   const [title, setTitle] = useState(existingTitle || '');
   const [description, setDescription] = useState(existingDescription || '');
@@ -24,6 +26,10 @@ export default function ProductForm({
   const [isUploading, setIsUploading] = useState(false);
   const [categories, setCategories] = useState([]);
   const [hoveredImageIndex, setHoveredImageIndex] = useState(null);
+  const [minWidth, setMinWidth] = useState(assignedWidth || '');
+  const [minHeight, setMinHeight] = useState(assignedHeight || '');
+
+
   const router = useRouter();
   useEffect(() => {
     axios.get('/api/categories').then(result => {
@@ -45,7 +51,9 @@ export default function ProductForm({
       images,
       category,
       properties: productProperties,
-      options: optionsPayload, // Include options data in the payload
+      options: optionsPayload,
+      minWidth,
+      minHeight,
     };
 
     if (_id) {
@@ -223,7 +231,24 @@ export default function ProductForm({
           </div>
           <input type="file" onChange={uploadImages} className="hidden" />
         </label>
-      </div >
+      </div>
+
+      <label>Rezoluție Minimă Imagini (Width)</label>
+      <label>Width:</label>
+      <input
+        type="number"
+        placeholder="Width"
+        value={minWidth}
+        onChange={ev => setMinWidth(ev.target.value)}
+      />
+      <label>Height:</label>
+      <input
+        type="number"
+        placeholder="Height"
+        value={minHeight}
+        onChange={ev => setMinHeight(ev.target.value)}
+      />
+
       <label>Descriere</label>
       <textarea
         placeholder="Descriere..."

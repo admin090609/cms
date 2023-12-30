@@ -40,13 +40,19 @@ export default function OrdersPage() {
                 Telefon: 0{order.phone}<br />
               </td>
               <td>
-                {order.line_items.map(l => (
-                  <>
-                    {l.price_data?.product_data.name} x
-                    {l.quantity}<br />{l.price_data?.product_data.options}
-                  </>
+                {order.line_items.map((l) => (
+                  <div key={l.id}>
+                    {l.price_data?.product_data?.name} x{l.quantity}<br />
+                    {l.price_data?.product_data?.images && l.price_data.product_data.images.map((image, index) => (
+                      <a key={index} href={image} download={`Image_${index + 1}.jpg`}>
+                        Download Image {index + 1}
+                      </a>
+                    ))}
+                    {/* Display options if available */}
+                  </div>
                 ))}
               </td>
+
             </tr>
           ))}
         </tbody>

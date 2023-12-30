@@ -7,7 +7,9 @@ const ProductSchema = new Schema({
   images: [{ type: String }],
   category: { type: mongoose.Types.ObjectId, ref: 'Category' },
   properties: { type: Object },
-  options: [{ title: String, options: [String] }],  
+  options: [{ title: String, options: [String] }],
+  minWidth: { type: Number, required: true },
+  minHeight: { type: Number, required: true }
 }, {
   timestamps: true,
 });
