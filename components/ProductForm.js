@@ -8,7 +8,6 @@ export default function ProductForm({
   _id,
   title: existingTitle,
   description: existingDescription,
-  price: existingPrice,
   images: existingImages,
   category: assignedCategory,
   properties: assignedProperties,
@@ -20,7 +19,6 @@ export default function ProductForm({
   const [description, setDescription] = useState(existingDescription || '');
   const [category, setCategory] = useState(assignedCategory || '');
   const [productProperties, setProductProperties] = useState(assignedProperties || {});
-  const [price, setPrice] = useState(existingPrice || '');
   const [images, setImages] = useState(existingImages || []);
   const [goToProducts, setGoToProducts] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
@@ -47,7 +45,6 @@ export default function ProductForm({
     const data = {
       title,
       description,
-      price,
       images,
       category,
       properties: productProperties,
@@ -288,12 +285,6 @@ export default function ProductForm({
         Adaugă titlu opțiune
       </button>
       <br />
-      <label>Preț (în Lei)</label>
-      <input
-        type="number" placeholder="Preț..."
-        value={price}
-        onChange={ev => setPrice(ev.target.value)}
-      />
       <button
         type="submit"
         className="btn-primary">
