@@ -16,7 +16,6 @@ export default function OrdersPage() {
     setAnswer(answer === 'No' ? 'Yes' : 'No');
   };
 
-
   return (
     <Layout>
       <h1>Comenzi</h1>
@@ -47,8 +46,16 @@ export default function OrdersPage() {
                       <a key={index} href={image} download={`Image_${index + 1}.jpg`}>
                         Download Image {index + 1}
                       </a>
+
                     ))}
-                    {/* Display options if available */}
+                    {l.price_data?.product_data?.options && (
+                      <div>
+                        Options:
+                        {Object.values(l.price_data.product_data.options).map((option, index) => (
+                          <div key={index}>{option}</div>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 ))}
               </td>
