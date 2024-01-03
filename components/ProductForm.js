@@ -157,6 +157,7 @@ export default function ProductForm({
         placeholder="Produsul..."
         value={title}
         onChange={ev => setTitle(ev.target.value)} />
+      <hr className="max-w-[90%] mb-2 border-2 rounded-xl items-center justify-center m-auto border-[#B1B1B1]" />
       <label>Categoria</label>
       <br />
       <select value={category}
@@ -167,24 +168,7 @@ export default function ProductForm({
           <option key={c._id} value={c._id}>{c.name}</option>
         ))}
       </select>
-      {propertiesToFill.length > 0 && propertiesToFill.map(p => (
-        <div key={p.name} className="">
-          <label>{p.name ? p.name[0].toUpperCase() + p.name.substring(1) : ''}</label>
-          <div>
-            <select value={productProperties[p.name]}
-              className="border-2 rounded-sm border-gray-400 mb-2"
-              onChange={ev =>
-                setProductProp(p.name, ev.target.value)
-              }
-            >
-              {p.values.map(v => (
-                <option key={v} value={v}>{v}</option>
-              ))}
-            </select>
-          </div>
-        </div>
-      ))}
-      <br />
+      <hr className="max-w-[90%] mb-2 border-2 rounded-xl items-center justify-center m-auto border-[#B1B1B1]" />
       <label>
         Imagini
       </label>
@@ -229,8 +213,8 @@ export default function ProductForm({
           <input type="file" onChange={uploadImages} className="hidden" />
         </label>
       </div>
-
-      <label>Rezoluție Minimă Imagini (Width)</label>
+      <hr className="max-w-[90%] mb-2 border-2 rounded-xl items-center justify-center m-auto border-[#B1B1B1]" />
+      <label>Rezoluție Minimă Imagini</label><br />
       <label>Width:</label>
       <input
         type="number"
@@ -245,13 +229,13 @@ export default function ProductForm({
         value={minHeight}
         onChange={ev => setMinHeight(ev.target.value)}
       />
-
+      <hr className="max-w-[90%] mb-2 border-2 rounded-xl items-center justify-center m-auto border-[#B1B1B1]" />
       <label>Descriere</label>
       <textarea
         placeholder="Descriere..."
         value={description}
         onChange={ev => setDescription(ev.target.value)}
-      />
+      /><hr className="max-w-[90%] mb-2 border-2 rounded-xl items-center justify-center m-auto border-[#B1B1B1]" />
       <label>Opțiuni</label>
       {optionsData.map((data, titleIndex) => (
         <div key={titleIndex} className="mb-2">
@@ -262,7 +246,7 @@ export default function ProductForm({
               value={data.title}
               onChange={(ev) => updateOptionData(titleIndex, 0, ev.target.value, true)}
             />
-            <button type="button" onClick={() => deleteTitle(titleIndex)}>
+            <button type="button" className="mb-2 ml-2 btn-primary" onClick={() => deleteTitle(titleIndex)}>
               Șterge
             </button>
           </div>
@@ -276,18 +260,18 @@ export default function ProductForm({
               />
             </div>
           ))}
-          <button type="button" onClick={() => addNewOption(titleIndex)}>
+          <button type="button" className="btn-primary" onClick={() => addNewOption(titleIndex)}>
             Adaugă opțiune
           </button>
         </div>
       ))}
-      <button type="button" onClick={addNewTitle}>
+      <button className="btn-primary" type="button" onClick={addNewTitle}>
         Adaugă titlu opțiune
       </button>
-      <br />
+      <br/>
       <button
         type="submit"
-        className="btn-primary">
+        className="btn-primary mt-4">
         Salvează
       </button>
     </form >
