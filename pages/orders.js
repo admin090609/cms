@@ -58,7 +58,7 @@ export default function OrdersPage() {
                     )}
                   </div>
                 ))}
-                <hr className="h-2 bg-black"/>
+                <hr className="mb-2 border-2 rounded-xl items-center justify-center m-auto border-[#B1B1B1]"/>
               </td>
 
             </tr>
