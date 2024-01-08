@@ -56,9 +56,11 @@ export default function OrdersPage() {
                         ))}
                       </div>
                     )}
+                    <hr className="mb-2 border-2 rounded-xl items-center justify-center m-auto border-[#B1B1B1]" />
                   </div>
+
                 ))}
-                <hr className="mb-2 border-2 rounded-xl items-center justify-center m-auto border-[#B1B1B1]"/>
+
               </td>
 
             </tr>
