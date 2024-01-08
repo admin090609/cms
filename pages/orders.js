@@ -58,6 +58,7 @@ export default function OrdersPage() {
                     )}
                   </div>
                 ))}
+                <hr className="h-2 bg-black"/>
               </td>
 
             </tr>
